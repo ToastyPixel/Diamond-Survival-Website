@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Diamond Survival – Minecraft Server</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Diamond Survival – long-term, harsh Minecraft survival server.">
+  <style>
+    /* ========= BASIC THEME ========= */
+    :root {
+      --bg: #050609;
+      --bg-card: #0b0f18;
+      --accent: #00d9ff;
+      --accent-soft: rgba(0, 217, 255, 0.14);
+      --text: #f5f5f5;
+      --muted: #a0a7b8;
+      --border: #1b2233;
+      --danger: #ff4a4a;
+      --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 16px;
+      font-family: var(--font);
+      background: radial-gradient(circle at top, #131a2b 0, #050609 50%, #000 100%);
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 900px;
+      background: rgba(3, 5, 10, 0.96);
+      border-radius: 18px;
+      border: 1px solid rgba(0,0,0,0.7);
+      padding: 18px 18px 22px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .title-block {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .server-name {
+      font-size: 1.5rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .server-tagline {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.8rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 4px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: rgba(5,7,13,0.9);
+    }
+
+    nav a:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 14px;
+    }
+
+    @media (max-width: 760px) {
+      main {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    .card {
+      background: var(--bg-card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      padding: 12px 12px 14px;
+    }
+
+    .card-title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .hero-name {
+      font-size: 1.6rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .hero-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .status-line {
+      font-size: 0.85rem;
+      margin-bottom: 10px;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4dff93;
+      box-shadow: 0 0 6px rgba(77,255,147,0.9);
+    }
+
+    .status-note {
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    .ip-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .ip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 6px;
+    }
+
+    .ip-box {
+      flex: 1 1 220px;
+      padding: 7px 9px;
+      border-radius: 9px;
+      background: #050811;
+      border: 1px solid var(--border);
+      font-family: "JetBrains Mono", "Fira Code", monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+    }
+
+    .btn {
+      border: none;
+      border-radius: 9px;
+      padding: 7px 10px;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      cursor: pointer;
+      background: var(--accent);
+      color: #000;
+    }
+
+    .btn:hover {
+      filter: brightness(1.1);
+    }
+
+    .mini-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .news-item {
+      margin-bottom: 8px;
+      padding: 7px 8px;
+      border-radius: 9px;
+      background: #090d16;
+      border: 1px solid #151c2b;
+    }
+
+    .news-date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .news-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 2px;
+    }
+
+    .news-body {
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .about-card p,
+    .about-card li {
+      font-size: 0.86rem;
+      color: var(--muted);
+    }
+
+    .about-card ul {
+      padding-left: 18px;
+      margin-top: 6px;
+    }
+
+    .about-card li + li {
+      margin-top: 3px;
+    }
+
+    footer {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: space-between;
+    }
+
+    a {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- ========= HEADER ========= -->
+  <header>
+    <div class="title-block">
+      <div class="server-name">Diamond Survival</div>
+      <div class="server-tagline">Fun • Minimal rules • Harsh world</div>
+    </div>
+    <nav>
+      <a href="#join">Join</a>
+      <a href="#news">News</a>
+      <a href="#about">Info</a>
+      <a href="#rules">Rules</a>
+      <a href="#commands">Commands</a>
+      <!-- EDIT: put your real Discord link here -->
+      <a href="" target="_blank" rel="noopener">Discord SOON</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ========= LEFT: MAIN / JOIN ========= -->
+    <section class="card" id="join">
+      <div class="card-title">Join the Server</div>
+
+      <div class="hero-name">Diamond Survival</div>
+
+      <!-- EDIT: change this text to whatever you want -->
+      <p class="hero-text">
+        A brutal, Minecraft survival server. No comfy lobby,
+        just you, other players, and a world that is full of destruction.
+      </p>
+
+      <!-- Static status (NOT LIVE) -->
+      <div class="status-line">
+        <span class="status-pill">
+          <span class="status-dot"></span>
+          <span>Online</span>
+        </span>
+        <span class="status-note">(status text is manual, not live)</span>
+      </div>
+
+      <!-- EDIT: change version text here -->
+      <p class="mini-note">Version: 1.21.10 0nly • Java Edition</p>
+
+      <!-- EDIT: change IP/domain here -->
+      <div class="ip-label">Server IP</div>
+      <div class="ip-row">
+        <div class="ip-box" id="server-ip">directory-algorithms.gl.joinmc.link</div>
+        <button class="btn" type="button" id="copy-ip">Copy IP</button>
+      </div>
+
+      <p class="mini-note">
+        Add this IP in Minecraft &gt; Multiplayer &gt; Add Server.  
+        Works on vanilla and most modded clients with the same version.
+      </p>
+    </section>
+
+    <!-- ========= RIGHT: NEWS / UPDATES ========= -->
+    <aside class="card" id="news">
+      <div class="card-title">News &amp; Updates</div>
+
+      <!-- To add new posts: copy one .news-item, paste below, and edit. -->
+      <div class="news-item">
+        <div class="news-date">21 November 2025 (Might be wrong sorry)</div>
+        <div class="news-title">Server launched</div>
+        <div class="news-body">
+          Diamond Survival is now online.
+        </div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-date">29 November 2025</div>
+        <div class="news-title">/home plugin update</div>
+        <div class="news-body">
+          Max homes changed from 6 to 8
+        </div>
+      </div>
+
+
+
+    </aside>
+  </main>
+
+  <!-- ========= INFO & RULES ========= -->
+  <section class="card about-card" id="about" style="margin-top: 14px;">
+    <div class="card-title">About the Server</div>
+
+    <!-- EDIT: change this text to describe your server -->
+    <p>
+      Diamond Survival A fun Server With Few Rules Just Join And Have Fun
+    </p>
+    <p>
+      Griefing, ambushes, traps and base hunting are part of the experience.
+      Protect your builds, make allies, or vanish into the wild.
+    </p>
+
+    <ul>
+      <li>Game mode: Survival</li>
+      <li>PVP: Enabled everywhere</li>
+      <li>Difficulty: Hard</li>
+      <li>World: Resets will happen i know its annoying resets only when server storage full to the brim</li>
+    </ul>
+  </section>
+
+  <section class="card about-card" id="rules" style="margin-top: 10px;">
+    <div class="card-title">Rules (Short &amp; Simple)</div>
+
+    <!-- EDIT: tweak these rules however you like -->
+    <ul>
+      <li>No doxxing or real-life threats.</li>
+      <li>No cheats or exploits that crash/lag the server or corrupt the map. (You can use hack clients)</li>
+      <li>No massive lag machines or spam purely made to kill TPS. (If caught you will be banned and inventory cleared)</li>
+      <li>No advertising or chat spam. (This isnt enforced but please dont thanks)</li>
+      <li>Griefing, stealing and PVP are allowed as part of survival. (Oh Yeahhh!!!)</li>
+    </ul>
+
+    <p class="mini-note">
+      Thanks For Reading :3
+    </p>
+  </section>
+  
+  
+<!-- ========= COMMANDS ========= -->
+<section class="card about-card" id="commands" style="margin-top: 10px;">
+  <div class="card-title">Server Commands</div>
+
+  <!-- EDIT: update this list to match your real commands -->
+  <p class="mini-note">
+    Basic public commands available on Diamond Survival. (i think this is all of them)
+  </p>
+
+  <ul>
+    <li><code>/dupe</code> – Dupes a item your holding by 5 (way to overpowerd lol).</li>
+    
+    <li><code>/sethome</code> – Set your home location.</li>
+    <li><code>/home</code> – Teliports you to a set location</li>
+    <li><code>/delhome</code> – Removed home location</li>
+    
+    
+    
+    <li><code>/tp-p help  </code> - Shows all /tp-p commands and their descriptions.</li>
+    <li><code>/tp-p  </code> - Sends a request to teleport to the specified player.</li>
+    <li><code>/tp-p here  </code> - Sends a request for a player to teleport to you.</li>
+    <li><code>/tp-p accept  </code> - Accepts the most recent teleport request sent to you.</li>
+    <li><code>/tp-p dissable  </code> - Rejects and disables all incoming teleport requests to you.</li>
+  </ul>
+
+  <p class="mini-note">
+    Some commands may change as the server updates. Check Discord for the most accurate list.
+  </p>
+</section>
+
+
+
+  <!-- ========= FOOTER ========= -->
+  <footer>
+    <span>Diamond Survival is not affiliated with Mojang or Microsoft.</span>
+    <!-- EDIT: add your real contact email if you want -->
+    <span> Diamond Survival</span>
+  </footer>
+</div>
+
+<script>
+  // Set year in footer
+  document.getElementById("year").textContent = new Date().getFullYear();
+
+  // Simple "Copy IP" button (optional)
+  const copyBtn = document.getElementById("copy-ip");
+  const ipBox = document.getElementById("server-ip");
+
+  copyBtn.addEventListener("click", async () => {
+    const ip = ipBox.textContent.trim();
+    try {
+      await navigator.clipboard.writeText(ip);
+      copyBtn.textContent = "Copied!";
+      setTimeout(() => copyBtn.textContent = "Copy IP", 1500);
+    } catch {
+      alert("Server IP: " + ip);
+    }
+  });
+</script>
+</body>
+</html>
